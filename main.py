@@ -1,79 +1,49 @@
-class WebPush:
-    platform = ""
-    optin = False
-    global_Frequency_capping = ""
-    start_date = ""
-    end_date = ""
-    language = ""
-    push_type = ""
-
-    def __init__(self):
-        pass
-
-    def send_push(self):
-        print("Push Gonderildi")
-
-
-class TriggerPush(WebPush):
-    trigger_page = ""
-
-    def __init__(self):
-        WebPush.__init__(self)
-
-
-class BulkPush(WebPush):
-    send_date = 0
-
-    def __init__(self):
-        WebPush.__init__(self)
-
-
-class SegmentPush(WebPush):
-    segment_name = ""
-
-    def __init__(self):
-        WebPush.__init__(self)
-
-
-class PriceAlertPush(WebPush):
-    price_info = 0
-    discount_rate = 0
-
-    def __init__(self):
-        WebPush.__init__(self)
-
-    def discount_price(self, price_info, discount_rate):
-        self.price_info = price_info
-        self.discount_rate = discount_rate
-        return self.price_info / self.discount_rate
-
-
-class InstockPush(WebPush):
-    stock_info = False
-
-    def __init__(self):
-        WebPush.__init__(self)
-
-    def stock_update(self):
-        self.stock_info = not self.stock_info
-        return self.stock_info
-
-
 def main():
-    web_push_object = WebPush()
-    trigger_push_object = TriggerPush()
-    bulk_push_object = BulkPush
-    segment_push_object = SegmentPush()
-    price_alert_push_object = PriceAlertPush()
-    instock_push_object = InstockPush()
-    web_push_object.send_push()
-    discount_price = price_alert_push_object.discount_price(1000, 15)
-    print(discount_price)
-    stock_update = instock_push_object.stock_update()
-    print(stock_update)
-    stock_update = instock_push_object.stock_update()
-    print(stock_update)
+    ogrenci_adi = str(input("Ogrenci Adı :"))
+    ogrenci_soyadi = str(input("Ogrenci Soyadi :"))
+    ogrenci_no = int(input("Ogrenci No :"))
+    dogru_sayisi = int(input("Doğru Sayisi :"))
+    yanlis_sayisi = int(input("Yanlıs Sayisi :"))
+
+    if(dogru_sayisi + yanlis_sayisi<50):
+        ogrenci_obje = Student(ogrenci_adi, ogrenci_soyadi, ogrenci_no)
+        soru_objesi = Soru()
+        net = soru_objesi.NetSayisi(dogru_sayisi,yanlis_sayisi)
+        hesap = soru_objesi.Hesapla(net)
+        ogrenci_obje.studentInformation()
+        print("Puan :", hesap)
+    else:
+        print("Girilen soru sayısı 50'den fazla.")
 
 
 if __name__ == '__main__':
     main()
+
+class Student():
+
+    def studentInformation(self):
+        print("Ögrenci Adı :" + self.ogrenci_adi)
+        print("Ögrenci Soyadı :" + self.ogrenci_soyadi)
+        print("Ögrenci No :" + str(self.ogrenci_no))
+
+    def __init__(self, ogrenciAdi, ogrenciSoyadi, ogrenciNo):
+        self.ogrenciAdi = ogrenciAdi
+        self.ogrenciSoyadi = ogrenciSoyadi
+        self.ogrenciNo = ogrenciNo
+
+class Soru():
+    def NetSayisi(self, dogru_sayisi, yanlis_sayisi):
+        temp = float(yanlis_sayisi / 4)
+        netSayisi = dogru_sayisi - temp
+        return netSayisi
+
+    def Hesapla(self, netSayisi):
+        hesap = netSayisi * 2
+        return hesap
+
+
+
+
+
+
+
